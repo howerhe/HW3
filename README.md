@@ -43,3 +43,17 @@ Total number of genes on chromosome X
 zcat dmel-all-r6.24.gtf.gz | gawk '{print $1,$3}' | grep '\<gene' | grep ‘\<X’ | uniq -c
 ```
 It shows 2676. For Y, 113. For 2L, 3501. For 2R, 3628. For 3L, 3463. For 3R, 4202. For 4, 111.
+
+### Comments
+
+Good job. Here's how I did the gene counting.
+
+```
+zgrep -v "^[#]" dmel-all-r6.24.gtf.gz \
+| awk ' $3 == "gene" ' \
+| cut -f1 \
+| sort \
+| uniq -c \
+| sort -rn \
+| head -7
+```
